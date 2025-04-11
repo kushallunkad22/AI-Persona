@@ -45,7 +45,7 @@ export default function Home() {
       <header className="flex items-center justify-between p-4 border-b border-gray-800">
         <div className="flex items-center gap-2">
           <Image src="/images/chai-icon.jpeg" alt="Chai Icon" width={24} height={24} className="rounded-full" />
-          <h1 className="text-xl font-semibold">Chat with AI Persona's</h1>
+          <h1 className="text-xl font-semibold">Chat with AI Persona&apos;s</h1>
         </div>
         <Link href="https://github.com/kushallunkad22" className="text-white">
           <svg
@@ -71,8 +71,8 @@ export default function Home() {
           <div className="flex justify-center mb-4">
             <Image src="/images/chai-icon.jpeg" alt="Chai Icon" width={48} height={48} className="rounded-full" />
           </div>
-          <h1 className="text-4xl font-bold text-orange-400 mb-2">Chat with AI Persona's</h1>
-          <p className="text-gray-400">Select who you'd like to chat with today</p>
+          <h1 className="text-4xl font-bold text-orange-400 mb-2">Chat with AI Persona&apos;s</h1>
+          <p className="text-gray-400">Select who you&apos;d like to chat with today</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 w-full max-w-6xl">
