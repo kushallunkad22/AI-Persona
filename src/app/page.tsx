@@ -1,103 +1,102 @@
-import Image from "next/image";
+"use client"
+
+import { useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { PersonaCard } from "@/components/personaCard"
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const router = useRouter()
+  const [selectedPersona, setSelectedPersona] = useState<string | null>(null)
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const personas = [
+    {
+      id: "hitesh",
+      name: "Hitesh Choudhary",
+      title: "Tech Educator & Entrepreneur",
+      description:
+        "Passionate about teaching programming with a focus on practical knowledge and real-world applications.",
+      image: "/images/hitesh.png",
+      tags: ["JavaScript", "Python", "Web Development", "DSA", "AI"],
+    },
+    {
+      id: "piyush",
+      name: "Piyush Garg",
+      title: "Educator & Content Creator",
+      description: "Content creator, educator, and entrepreneur known for his expertise in the tech industry.",
+      image: "/images/piyush.png",
+      tags: ["Docker", "React", "Node.js", "Gen AI", "Career Advice"],
+    },
+  ]
+
+  const handleSelectPersona = (id: string) => {
+    setSelectedPersona(id === selectedPersona ? null : id)
+  }
+
+  const handleStartChat = () => {
+    if (selectedPersona) {
+      router.push(`/chat/${selectedPersona}`)
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      <header className="flex items-center justify-between p-4 border-b border-gray-800">
+        <div className="flex items-center gap-2">
+          <Image src="/images/chai-icon.jpeg" alt="Chai Icon" width={24} height={24} className="rounded-full" />
+          <h1 className="text-xl font-semibold">Chat with AI Persona's</h1>
+        </div>
+        <Link href="https://github.com/kushallunkad22" className="text-white">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-6 h-6"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+            <path d="M9 18c-4.51 2-5-2-7-2"></path>
+          </svg>
+        </Link>
+      </header>
+
+      <main className="container mx-auto px-4 py-16 flex flex-col items-center">
+        <div className="text-center mb-12">
+          <div className="flex justify-center mb-4">
+            <Image src="/images/chai-icon.jpeg" alt="Chai Icon" width={48} height={48} className="rounded-full" />
+          </div>
+          <h1 className="text-4xl font-bold text-orange-400 mb-2">Chat with AI Persona's</h1>
+          <p className="text-gray-400">Select who you'd like to chat with today</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 w-full max-w-6xl">
+          {personas.map((persona) => (
+            <PersonaCard
+              key={persona.id}
+              persona={persona}
+              selected={selectedPersona === persona.id || selectedPersona === "all"}
+              onSelect={handleSelectPersona}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+         
+          <button
+            className={`bg-gradient-to-r from-orange-500 to-orange-700 hover:from-orange-600 hover:to-orange-800 text-white px-8 py-2 rounded-md ${!selectedPersona ? "opacity-50 cursor-not-allowed" : ""}`}
+            onClick={handleStartChat}
+            disabled={!selectedPersona}
           >
-            Read our docs
-          </a>
+          {selectedPersona ? "Start Chat with " + selectedPersona : "Please select a Persona"}
+          </button>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
-  );
+  )
 }
